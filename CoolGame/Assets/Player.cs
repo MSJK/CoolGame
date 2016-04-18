@@ -14,6 +14,15 @@ public class Player : MonoBehaviour {
 	void Update () {
         myMover.SetAcceleration(Vector3.down*20);
 
-        Camera.main.transform.position = new Vector3(myTransform.position.x, 1, myTransform.position.z - 2);
+        Camera.main.transform.position = new Vector3(myTransform.position.x, 0, myTransform.position.z - 2);
 	}
+
+    void OnTriggerEnter(Collider col)
+    {
+        myMover.Collide(col);
+    }
+    void OnTriggerStay(Collider col)
+    {
+        myMover.Collide(col);
+    }
 }
