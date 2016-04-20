@@ -9,21 +9,23 @@ public class Mover : MonoBehaviour {
     float maxMoveSpeed;
     [SerializeField]
     float jumpHeight;
+    BoxCollider myCollider;
 
 	// Use this for initialization
 	void Start () {
-        myTransform = transform;	
+        myTransform = transform;
+        myCollider = (BoxCollider)gameObject.GetComponent(typeof(BoxCollider));	
 	}
 	
 	// Update is called once per frame
 	void Update () {
         myTransform.position += velocity * Time.deltaTime;
         velocity += acceleration * Time.deltaTime;
-        if (myTransform.position.y < 0)
+        /*if (myTransform.position.y < 0)
         {
             myTransform.position = new Vector3(myTransform.position.x, 0, myTransform.position.z);
             velocity.y = 0;
-        }
+        }*/
         if (Input.GetKeyDown(KeyCode.Space))
             velocity.y = jumpHeight;
 	}
@@ -36,5 +38,12 @@ public class Mover : MonoBehaviour {
     public void SetAcceleration(Vector3 accel)
     {
         acceleration = accel;
+    }
+
+    public void Collide(Collider col)
+    {
+        myTransform.position = new Vector3(myTransform.position.x, col.transform.position.y+myCollider.size.y/2+col.bounds.extents.y, myTransform.position.z);
+        if(velocity.y< 0) velocity.y = 0;
+        //acceleration.y = 0;
     }
 }
