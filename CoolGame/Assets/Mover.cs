@@ -10,7 +10,7 @@ public class Mover : MonoBehaviour {
     [SerializeField]
     float jumpHeight;
     BoxCollider myCollider;
-
+    bool grounded = true;
 	// Use this for initialization
 	void Start () {
         myTransform = transform;
@@ -21,14 +21,18 @@ public class Mover : MonoBehaviour {
 	void Update () {
         myTransform.position += velocity * Time.deltaTime;
         velocity += acceleration * Time.deltaTime;
-        /*if (myTransform.position.y < 0)
+        if (grounded && Input.GetKeyDown(KeyCode.Space))
         {
-            myTransform.position = new Vector3(myTransform.position.x, 0, myTransform.position.z);
-            velocity.y = 0;
-        }*/
-        if (Input.GetKeyDown(KeyCode.Space))
             velocity.y = jumpHeight;
+            StartCoroutine(Unground());
+        }
 	}
+
+    IEnumerator Unground()
+    {
+        yield return null;
+        grounded = false;
+    }
 
     public void SetVelocity(Vector3 direction, float percent)
     {
@@ -42,8 +46,8 @@ public class Mover : MonoBehaviour {
 
     public void Collide(Collider col)
     {
+        grounded = true;
         myTransform.position = new Vector3(myTransform.position.x, col.transform.position.y+myCollider.size.y/2+col.bounds.extents.y, myTransform.position.z);
         if(velocity.y< 0) velocity.y = 0;
-        //acceleration.y = 0;
     }
 }
