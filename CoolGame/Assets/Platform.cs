@@ -15,14 +15,14 @@ public class Platform : MonoBehaviour {
     {
         get
         {
-            return myTransform.position.x-myTransform.localScale.x;
+            return myTransform.position.x-myTransform.localScale.x/2;
         }
     }
     public float PlatformEnd
     {
         get
         {
-            return myTransform.position.x + myTransform.localScale.x; ;
+            return myTransform.position.x + myTransform.localScale.x/2;
         }
     }
     public float PlatformHeight
