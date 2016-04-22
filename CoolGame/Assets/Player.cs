@@ -20,7 +20,10 @@ public class Player : MonoBehaviour {
 	void Update () {
         myPT.Report(this);
         myMover.SetAcceleration(Vector3.down*20);
-
+        if (Input.GetKey(KeyCode.Space))
+            myMover.ChargeJump();
+        if (Input.GetKeyUp(KeyCode.Space))
+            myMover.Jump();
         //Camera.main.transform.position = new Vector3(myTransform.position.x, 0, myTransform.position.z - 5);
 	}
 
