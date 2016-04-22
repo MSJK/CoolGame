@@ -5,11 +5,14 @@ public class Mover : MonoBehaviour {
     Vector3 acceleration;
     Vector3 velocity;
     Transform myTransform;
+    float jumpCharge = 0;
     [SerializeField]
     float maxMoveSpeed;
     [SerializeField]
     float jumpHeight;
     BoxCollider myCollider;
+    [SerializeField]
+    float jumpChargeSpeed = 24f;
     bool grounded = true;
 	// Use this for initialization
 	void Start () {
@@ -20,18 +23,28 @@ public class Mover : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         myTransform.position += velocity * Time.deltaTime;
-        velocity += acceleration * Time.deltaTime;
-        if (grounded && Input.GetKeyDown(KeyCode.Space))
-        {
-            velocity.y = jumpHeight;
-            StartCoroutine(Unground());
-        }
+        velocity += acceleration * Time.deltaTime;        
 	}
 
     IEnumerator Unground()
     {
         yield return null;
         grounded = false;
+    }
+
+    public void Jump()
+    {
+        if (grounded)
+        {
+            jumpCharge = Mathf.Clamp(jumpCharge, 0, 1);
+            velocity.y = jumpHeight*jumpCharge;
+            StartCoroutine(Unground());
+            jumpCharge = 0;
+        }
+    }
+    public void ChargeJump()
+    {
+        jumpCharge += Time.deltaTime * jumpChargeSpeed;
     }
 
     public void SetVelocity(Vector3 direction, float percent)

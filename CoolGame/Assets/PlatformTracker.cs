@@ -10,7 +10,7 @@ public class PlatformTracker : MonoBehaviour {
 	void Start () {
         var firstPlatform = (GameObject)Instantiate(Resources.Load("Platform"));
         Vector3 prefabScale = firstPlatform.transform.localScale;
-        firstPlatform.transform.localScale = new Vector3(15, prefabScale.y, prefabScale.z);
+        firstPlatform.transform.localScale = new Vector3(30, prefabScale.y, prefabScale.z);
         currentPf = (Platform)firstPlatform.GetComponent(typeof(Platform));
 	}
 	
@@ -19,7 +19,7 @@ public class PlatformTracker : MonoBehaviour {
 	    if(currentPf.PlatformEnd<bounds.x)
         {
             float newYDiff = UnityEngine.Random.value * 1.5f -.75f;
-            float newXDiff = UnityEngine.Random.value * 4f + 1.5f;
+            float newXDiff = UnityEngine.Random.value * 3.75f + 1.5f;
             var newPlatform = (GameObject)Instantiate(Resources.Load("Platform"), new Vector3(currentPf.PlatformEnd + newXDiff, currentPf.transform.position.y + newYDiff, 0), Quaternion.identity);
             currentPf = (Platform)newPlatform.GetComponent(typeof(Platform));
         }
