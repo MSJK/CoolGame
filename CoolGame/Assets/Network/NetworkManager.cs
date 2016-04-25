@@ -10,7 +10,7 @@ public struct StoreItem
     public string name;
     public string id;
     public int pool;
-    public int cost;
+    public int price;
 }
 
 public class NetworkManager : MonoBehaviour
@@ -21,6 +21,8 @@ public class NetworkManager : MonoBehaviour
     public List<StoreItem> Store { get; private set; }
     public int ClientCount { get; private set; }
     public string RoomCode { get; private set; }
+
+    public ProcessStorePurchase ItemBought;
 
     private bool waitingOnOpen = false;
     
@@ -40,12 +42,21 @@ public class NetworkManager : MonoBehaviour
             socket.Emit("create game");
             waitingOnOpen = false;
         });
+        socket.On("close", (e) =>
+        {
+            Debug.Log("Disconnected from game lobby service");
+        });
         socket.On("bad command", (e) =>
         {
             Debug.LogError("Received bad command message");
         });
         socket.On("game state", OnGameState);
         socket.On("game created", OnGameCreated);
+        socket.On("game started", (e) =>
+        {
+            Debug.Log("Game started on lobby service");
+        });
+        socket.On("item bought", OnItemBought);
 
 	    SceneManager.LoadScene("MainMenu");
 	}
@@ -74,20 +85,20 @@ public class NetworkManager : MonoBehaviour
     public void AddStoreItem(string id, string name, int price)
     {
         var item = new Dictionary<string, JSONObject>();
-        item.Add("id", new JSONObject(id));
-        item.Add("name", new JSONObject(name));
+        item.Add("id", JSONObject.CreateStringObject(id));
+        item.Add("name", JSONObject.CreateStringObject(name));
         item.Add("price", new JSONObject(price));
         
         var msg = new Dictionary<string, JSONObject>();
         msg.Add("item", new JSONObject(item));
-        msg.Add("roomCode", new JSONObject(RoomCode));
+        msg.Add("roomCode", JSONObject.CreateStringObject(RoomCode));
 
         socket.Emit("add item", new JSONObject(msg));
     }
 
     public void StartGame()
     {
-        socket.Emit("start game");
+        socket.Emit("start game", JSONObject.CreateStringObject(RoomCode));
     }
 
     // SOCKET EVENTS
@@ -121,11 +132,26 @@ public class NetworkManager : MonoBehaviour
                     id = item["id"].str,
                     name = item["name"].str,
                     pool = (int) item["pool"].n,
-                    cost = (int) item["cost"].n
+                    price = (int) item["price"].n
                 });
             }
 
             Debug.LogFormat("stage = {0}, client count = {1}", Stage, ClientCount);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
+    }
+
+    public void OnItemBought(SocketIOEvent ev)
+    {
+        try
+        {
+            var itemId = ev.data["id"].str;
+            Debug.LogFormat("Item was bought: {0}", itemId);
+            if (ItemBought != null)
+                ItemBought(itemId);
         }
         catch (Exception e)
         {
