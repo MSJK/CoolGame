@@ -15,13 +15,14 @@ public struct StoreItem
 
 public class NetworkManager : MonoBehaviour
 {
-
     private SocketIOComponent socket = null;
 
-    public string Stage { get; set; }
-    public List<StoreItem> Store { get; set; }
-    public int ClientCount { get; set; }
-    public string RoomCode { get; set; }
+    public string Stage { get; private set; }
+    public List<StoreItem> Store { get; private set; }
+    public int ClientCount { get; private set; }
+    public string RoomCode { get; private set; }
+
+    private bool waitingOnOpen = false;
     
 	void Start ()
 	{
@@ -30,9 +31,14 @@ public class NetworkManager : MonoBehaviour
         Store = new List<StoreItem>();
 
 	    socket = this.gameObject.GetComponent<SocketIOComponent>();
-        socket.On("connect", (e) =>
+        socket.On("open", (e) =>
         {
+            if (!waitingOnOpen)
+                return;
+
+            Debug.Log("Connected to game lobby service, creating game");
             socket.Emit("create game");
+            waitingOnOpen = false;
         });
         socket.On("game state", OnGameState);
         socket.On("game created", OnGameCreated);
@@ -45,6 +51,8 @@ public class NetworkManager : MonoBehaviour
         if (socket.IsConnected)
             return;
 
+        waitingOnOpen = true;
+        Debug.Log("Connecting to game lobby service...");
         socket.Connect();
     }
 
@@ -53,7 +61,10 @@ public class NetworkManager : MonoBehaviour
         if (!socket.IsConnected)
             return;
 
+        Debug.Log("Disconnecting from game lobby service...");
         socket.Close();
+        RoomCode = string.Empty;
+        ClientCount = 0;
     }
 
     public void StartGame()
@@ -80,9 +91,9 @@ public class NetworkManager : MonoBehaviour
     {
         try
         {
-            Stage = ev.data["stage"].str;
-            ClientCount = (int) ev.data["clients"].n;
-            var store = ev.data["store"];
+            Stage = ev.data["state"]["stage"].str;
+            ClientCount = (int) ev.data["players"].n;
+            var store = ev.data["state"]["store"];
             Store.Clear();
             for (var i = 0; i < store.Count; ++i)
             {
