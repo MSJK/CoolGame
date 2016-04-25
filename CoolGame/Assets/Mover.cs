@@ -6,6 +6,13 @@ public class Mover : MonoBehaviour {
     Vector3 velocity;
     Transform myTransform;
     float jumpCharge = 0;
+    public float JumpCharge
+    {
+        get
+        {
+            return jumpCharge;
+        }
+    }
     [SerializeField]
     float maxMoveSpeed;
     [SerializeField]
@@ -13,6 +20,8 @@ public class Mover : MonoBehaviour {
     BoxCollider myCollider;
     [SerializeField]
     float jumpChargeSpeed = 24f;
+    [SerializeField]
+    float jumpChargeScalar = .001f;
     bool grounded = true;
 	// Use this for initialization
 	void Start () {
@@ -34,17 +43,15 @@ public class Mover : MonoBehaviour {
 
     public void Jump()
     {
-        if (grounded)
-        {
-            jumpCharge = Mathf.Clamp(jumpCharge, 0, 1);
-            velocity.y = jumpHeight*jumpCharge;
-            StartCoroutine(Unground());
-            jumpCharge = 0;
-        }
+        jumpCharge = Mathf.Clamp(jumpCharge, 0, 1);
+        velocity.y += jumpHeight*jumpCharge;
+        StartCoroutine(Unground());
+        jumpCharge = 0;
     }
     public void ChargeJump()
     {
-        jumpCharge += Time.deltaTime * jumpChargeSpeed;
+        jumpCharge += (Time.deltaTime * jumpChargeScalar);
+        jumpCharge *= 1+(Time.deltaTime * jumpChargeSpeed);
     }
 
     public void SetVelocity(Vector3 direction, float percent)
