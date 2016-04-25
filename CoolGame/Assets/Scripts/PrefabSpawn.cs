@@ -4,7 +4,7 @@ using System.Collections;
 public class PrefabSpawn : MonoBehaviour {
 
     //bgAssets Object
-    private GameObject bgGroup;
+    private Transform bgGroup;
 
     //Prefab Slot
     public GameObject prefabObj;
@@ -19,8 +19,11 @@ public class PrefabSpawn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        bgGroup = this.transform.parent.gameObject;
 
+        //set background group variable to this object's parent
+        bgGroup = this.transform.parent;
+
+        //begin coroutine for spawning prefabs on interval
         StartCoroutine(InstancePrefab());
 	}
 	
@@ -29,20 +32,24 @@ public class PrefabSpawn : MonoBehaviour {
 	
 	}
 
+    // Coroutine for instancing prefab on interval
     IEnumerator InstancePrefab()
     {
         for(;;)
         {
+            //the object to be instanced
             GameObject instance = Instantiate(prefabObj);
 
+            //set object's starting position to be right of screen at random height
             instance.transform.position = new Vector3 (boundRight, Random.Range(boundTop, boundBottom), depthLevel);
-            instance.transform.parent = this.transform;
-            instance.GetComponent<ScreenCull>().cullBound = boundLeft;
-            if(bgGroup.GetComponent<DigitGroup>().isGlitching)
-            {
-                instance.GetComponent<Animator>().enabled = true;
-            }
 
+            //make spawned object child of the game object this script is attached to
+            instance.transform.parent = this.transform;
+
+            //set spawned object's bound for self-culling based on left of screen
+            instance.GetComponent<ScreenCull>().cullBound = boundLeft;
+
+            //do nothing until next interval
             yield return new WaitForSeconds(spawnInterval);
         }
     }

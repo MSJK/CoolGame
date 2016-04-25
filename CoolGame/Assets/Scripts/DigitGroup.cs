@@ -13,6 +13,11 @@ public class DigitGroup : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (isGlitching)
+            DigitSprite.Is_Cycling = true;
+        else
+            DigitSprite.Is_Cycling = false;
 	
 	}
 }
