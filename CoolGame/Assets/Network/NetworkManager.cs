@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using SocketIO;
+using UnityEngine.SceneManagement;
 
 public struct StoreItem
 {
@@ -36,7 +37,7 @@ public class NetworkManager : MonoBehaviour
         socket.On("game state", OnGameState);
         socket.On("game created", OnGameCreated);
 
-        Application.LoadLevel("MainMenu");
+	    SceneManager.LoadScene("MainMenu");
 	}
 
     public void Connect()
