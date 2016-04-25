@@ -20,26 +20,59 @@ public class NetworkManager : MonoBehaviour
     public string Stage { get; set; }
     public List<StoreItem> Store { get; set; }
     public int ClientCount { get; set; }
+    public string RoomCode { get; set; }
     
 	void Start ()
 	{
+        DontDestroyOnLoad(gameObject);
+
         Store = new List<StoreItem>();
 
 	    socket = this.gameObject.GetComponent<SocketIOComponent>();
+        socket.On("connect", (e) =>
+        {
+            socket.Emit("create game");
+        });
         socket.On("game state", OnGameState);
+        socket.On("game created", OnGameCreated);
 
-	    StartCoroutine(StartAfterSeconds(5));
+        Application.LoadLevel("MainMenu");
 	}
 
-    IEnumerator StartAfterSeconds(float amount)
+    public void Connect()
     {
-        yield return new WaitForSeconds(amount);
-        StartGame();
+        if (socket.IsConnected)
+            return;
+
+        socket.Connect();
+    }
+
+    public void Disconnect()
+    {
+        if (!socket.IsConnected)
+            return;
+
+        socket.Close();
     }
 
     public void StartGame()
     {
         socket.Emit("start game");
+    }
+
+    // SOCKET EVENTS
+
+    public void OnGameCreated(SocketIOEvent ev)
+    {
+        try
+        {
+            RoomCode = ev.data.str;
+            Debug.LogFormat("Game created with room code {0}", RoomCode);
+        }
+        catch(Exception e)
+        {
+            Debug.LogError(e);
+        }
     }
 
     public void OnGameState(SocketIOEvent ev)
