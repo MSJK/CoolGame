@@ -34,6 +34,11 @@ public class GameLobby : MonoBehaviour {
         network.Disconnect();
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Game");
+    }
     
     void Update ()
     {

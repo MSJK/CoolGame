@@ -40,6 +40,10 @@ public class NetworkManager : MonoBehaviour
             socket.Emit("create game");
             waitingOnOpen = false;
         });
+        socket.On("bad command", (e) =>
+        {
+            Debug.LogError("Received bad command message");
+        });
         socket.On("game state", OnGameState);
         socket.On("game created", OnGameCreated);
 
@@ -65,6 +69,20 @@ public class NetworkManager : MonoBehaviour
         socket.Close();
         RoomCode = string.Empty;
         ClientCount = 0;
+    }
+
+    public void AddStoreItem(string id, string name, int price)
+    {
+        var item = new Dictionary<string, JSONObject>();
+        item.Add("id", new JSONObject(id));
+        item.Add("name", new JSONObject(name));
+        item.Add("price", new JSONObject(price));
+        
+        var msg = new Dictionary<string, JSONObject>();
+        msg.Add("item", new JSONObject(item));
+        msg.Add("roomCode", new JSONObject(RoomCode));
+
+        socket.Emit("add item", new JSONObject(msg));
     }
 
     public void StartGame()
