@@ -538,6 +538,7 @@ GameObject:
   - 92: {fileID: 1738127790}
   - 124: {fileID: 1738127789}
   - 81: {fileID: 1738127788}
+  - 114: {fileID: 1738127793}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -613,6 +614,22 @@ Transform:
   - {fileID: 1035790011}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1738127793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1738127787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88f65e3db92982748a7e13692b27ee60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {x: 0, y: 0, z: 0}
+  glitchDuration: 500
+  lerpSpeed: 0.01
+  glitchLerpSpeed: 0.5
+  glitchDistance: 1
 --- !u!1001 &1943935277
 Prefab:
   m_ObjectHideFlags: 0

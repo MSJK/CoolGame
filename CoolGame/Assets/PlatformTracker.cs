@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlatformTracker : MonoBehaviour {
+    CameraScript cs;
     HashSet<Platform> pfSet = new HashSet<Platform>();
     Platform currentPf;
     Vector2 bounds = new Vector2(20, 20);
 	// Use this for initialization
 	void Start () {
+        cs = (CameraScript)Camera.main.GetComponent(typeof(CameraScript));
         var firstPlatform = (GameObject)Instantiate(Resources.Load("Platform"));
         Vector3 prefabScale = firstPlatform.transform.localScale;
         firstPlatform.transform.localScale = new Vector3(30, prefabScale.y, prefabScale.z);
@@ -23,7 +25,8 @@ public class PlatformTracker : MonoBehaviour {
             var newPlatform = (GameObject)Instantiate(Resources.Load("Platform"), new Vector3(currentPf.PlatformEnd + newXDiff, currentPf.transform.position.y + newYDiff, 0), Quaternion.identity);
             currentPf = (Platform)newPlatform.GetComponent(typeof(Platform));
         }
-        Camera.main.transform.position += new Vector3(0, (currentPf.transform.position.y+2f - Camera.main.transform.position.y)*.2f*Time.deltaTime, 0);
+        //Camera.main.transform.position += new Vector3(0, (currentPf.transform.position.y+2f - Camera.main.transform.position.y)*.2f*Time.deltaTime, 0);
+        cs.target = new Vector3(Camera.main.transform.position.x, currentPf.transform.position.y + 2f, Camera.main.transform.position.z);
 	}
 
     public void Report(Platform pf)

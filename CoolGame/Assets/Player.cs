@@ -4,6 +4,7 @@ using System.Collections;
 public class Player : MonoBehaviour {
     Transform myTransform;
     PlatformTracker myPT;
+
     public Transform MyTransform
     {
         get { return myTransform; }
