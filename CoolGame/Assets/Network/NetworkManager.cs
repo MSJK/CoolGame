@@ -104,6 +104,11 @@ public class NetworkManager : MonoBehaviour
         socket.Emit("start game", JSONObject.CreateStringObject(RoomCode));
     }
 
+    public void GameOver()
+    {
+        socket.Emit("game over", JSONObject.CreateStringObject(RoomCode));
+    }
+
     // SOCKET EVENTS
 
     public void OnGameCreated(SocketIOEvent ev)
