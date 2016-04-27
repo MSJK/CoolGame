@@ -5,17 +5,17 @@ public class PrefabSpawn : MonoBehaviour {
 
     //bgAssets Object
     private Transform bgGroup;
+    public static float Spawn_Interval;
 
     //Prefab Slot
     public GameObject prefabObj;
-    public float spawnInterval;
     public float depthLevel;
 
     //ScreenBoundValues
-    public float boundLeft;
-    public float boundRight;
-    public float boundTop;
-    public float boundBottom;
+    public static float Bound_Left;
+    public static float Bound_Right;
+    public static float Bound_Top;
+    public static float Bound_Bottom;
 
 	// Use this for initialization
 	void Start () {
@@ -41,16 +41,16 @@ public class PrefabSpawn : MonoBehaviour {
             GameObject instance = Instantiate(prefabObj);
 
             //set object's starting position to be right of screen at random height
-            instance.transform.position = new Vector3 (boundRight, Random.Range(boundTop, boundBottom), depthLevel);
+            instance.transform.position = new Vector3 (Bound_Right, Random.Range(Bound_Top, Bound_Bottom), depthLevel);
 
             //make spawned object child of the game object this script is attached to
             instance.transform.parent = this.transform;
 
             //set spawned object's bound for self-culling based on left of screen
-            instance.GetComponent<ScreenCull>().cullBound = boundLeft;
+            instance.GetComponent<ScreenCull>().cullBound = Bound_Left;
 
             //do nothing until next interval
-            yield return new WaitForSeconds(spawnInterval);
+            yield return new WaitForSeconds(Spawn_Interval);
         }
     }
 }
