@@ -109,6 +109,14 @@ public class NetworkManager : MonoBehaviour
         socket.Emit("game over", JSONObject.CreateStringObject(RoomCode));
     }
 
+    public void GivePoints(int amount)
+    {
+        var msg = new Dictionary<string, JSONObject>();
+        msg.Add("roomCode", JSONObject.CreateStringObject(RoomCode));
+        msg.Add("amount", new JSONObject(amount));
+        socket.Emit("add points", new JSONObject(msg));
+    }
+
     // SOCKET EVENTS
 
     public void OnGameCreated(SocketIOEvent ev)

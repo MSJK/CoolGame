@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour {
 
         // Initial Items
         network.AddStoreItem("screen-shake", "Screen Shake", 300);
+        network.AddStoreItem("flicker", "Flicker", 500);
 
         network.ItemBought += OnItemBought;
 
@@ -34,10 +35,20 @@ public class GameManager : MonoBehaviour {
 
     void OnDestroy()
     {
-        if (network.ItemBought != null) network.ItemBought -= OnItemBought;
+        if (network != null && network.ItemBought != null) network.ItemBought -= OnItemBought;
     }
 
-    
+    void GameOver()
+    {
+        if (network != null)
+            network.GameOver();
+    }
+
+    void GivePoints(int amount)
+    {
+        if (network != null)
+            network.GivePoints(amount);
+    }
 
     // EVENT HANDLING
 
