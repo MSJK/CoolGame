@@ -42,11 +42,12 @@ public class CameraScript : MonoBehaviour {
     IEnumerator CameraShake()
     {
         glitching = true;
+        glitchOffset = (UnityEngine.Random.insideUnitCircle * glitchDistance);
         while (glitching)
         {
+            yield return null;
             if (myTransform.position == currentNonGlitchPosition + glitchOffset)
                 glitchOffset = (UnityEngine.Random.insideUnitCircle * glitchDistance);
-            yield return null;
         }
     }
 }
