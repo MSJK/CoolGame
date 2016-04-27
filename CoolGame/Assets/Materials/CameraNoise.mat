@@ -130,11 +130,11 @@ Material:
       data:
         first:
           name: _EffectTime
-        second: 6.580129
+        second: 2.9986482
       data:
         first:
           name: _MaxTime
-        second: 10
+        second: 3
     m_Colors:
       data:
         first:

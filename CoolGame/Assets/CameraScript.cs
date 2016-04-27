@@ -8,25 +8,31 @@ public class CameraScript : MonoBehaviour {
     public Vector3 target;
     Vector3 currentNonGlitchPosition;
     Vector3 glitchOffset;
-    bool glitching = false;
-    DateTime glitchStart;
+    bool shaking = false;
+    DateTime shakeStart;
     [SerializeField]
-    float glitchDuration = 500;
+    float shakeDuration = 500;
     [SerializeField]
     float lerpSpeed = .01f;
     [SerializeField]
-    float glitchLerpSpeed = .5f;
+    float shakeLerpSpeed = .5f;
     [SerializeField]
-    float glitchDistance = 1;
+    float shakeDistance = 1;
     [SerializeField]
     float resetLerpSpeed = 1;
+    bool flickering = false;
+    [SerializeField]
+    float flickerDuration;
+    [SerializeField]
+    float shakeRampPercentage;
+    DateTime flickerStart;
 
     // Camera Shaders
     [SerializeField]
     Material noiseMaterial;
 
     private CameraGlitchEffect cameraEffects;
-
+    
 	// Use this for initialization
 	void Start () {
         pl = (Player)(GameObject.Find("Player").GetComponent(typeof(Player)));
@@ -45,6 +51,10 @@ public class CameraScript : MonoBehaviour {
                 case "noise":
                     CameraNoise();
                     break;
+
+                case "flicker":
+                    StartCoroutine(Flicker());
+                    break;
             }
         };
     }
@@ -52,25 +62,38 @@ public class CameraScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (Input.GetKeyDown(KeyCode.C))
-            StartCoroutine(CameraShake());
-        if (glitching && (DateTime.Now - glitchStart).Milliseconds > glitchDuration)
-            glitching = false;
+            StartCoroutine(Flicker());
+        if (shaking && (DateTime.Now - shakeStart).Milliseconds > shakeDuration)
+            shaking = false;
+        if (flickering && (DateTime.Now - flickerStart).Milliseconds > flickerDuration)
+            flickering = false;
         currentNonGlitchPosition = Vector3.Lerp(myTransform.position, target, lerpSpeed*Time.deltaTime);
         currentNonGlitchPosition.x = pl.MyTransform.position.x;
         Debug.DrawRay(currentNonGlitchPosition, Vector3.up, Color.red, Time.deltaTime);
-        myTransform.position = Vector3.Lerp(myTransform.position, (glitching) ? (currentNonGlitchPosition + glitchOffset) : currentNonGlitchPosition, (glitching) ? (glitchLerpSpeed * Time.deltaTime) : (resetLerpSpeed * Time.deltaTime));
+        myTransform.position = Vector3.Lerp(myTransform.position, (shaking) ? (currentNonGlitchPosition + glitchOffset) : currentNonGlitchPosition, (shaking) ? (shakeLerpSpeed * Time.deltaTime) : (resetLerpSpeed * Time.deltaTime));
 	}
+
+    IEnumerator Flicker()
+    {
+        flickering = true;
+        Camera.main.cullingMask &= ~(1 << LayerMask.NameToLayer("Gameplay objects"));
+        while (flickering)
+        {
+            //if()
+            yield return null;
+        }
+    }
 
     IEnumerator CameraShake()
     {
-        glitching = true;
-        glitchStart = DateTime.Now;
-        glitchOffset = (UnityEngine.Random.insideUnitCircle * glitchDistance);
-        while (glitching)
+        shaking = true;
+        shakeStart = DateTime.Now;
+        glitchOffset = (UnityEngine.Random.insideUnitCircle * shakeDistance);
+        while (shaking)
         {
             yield return null;
             if (myTransform.position == currentNonGlitchPosition + glitchOffset)
-                glitchOffset = (UnityEngine.Random.insideUnitCircle * glitchDistance);
+                glitchOffset = (UnityEngine.Random.insideUnitCircle * shakeDistance);
         }
     }
 
