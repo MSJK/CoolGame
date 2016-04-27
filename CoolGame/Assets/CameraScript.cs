@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 
 public class CameraScript : MonoBehaviour {
+    Player pl;
     Transform myTransform;
     public Vector3 target;
     Vector3 currentNonGlitchPosition;
@@ -17,8 +18,11 @@ public class CameraScript : MonoBehaviour {
     float glitchLerpSpeed = .5f;
     [SerializeField]
     float glitchDistance = 1;
+    [SerializeField]
+    float resetLerpSpeed = 1;
 	// Use this for initialization
 	void Start () {
+        pl = (Player)(GameObject.Find("Player").GetComponent(typeof(Player)));
         myTransform = transform;
         currentNonGlitchPosition = transform.position;
         glitchOffset = Vector3.zero;
@@ -33,15 +37,20 @@ public class CameraScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetKeyDown(KeyCode.C))
+            StartCoroutine(CameraShake());
         if (glitching && (DateTime.Now - glitchStart).Milliseconds > glitchDuration)
             glitching = false;
-        currentNonGlitchPosition = Vector3.Lerp(myTransform.position, target, lerpSpeed);
-        myTransform.position = Vector3.Lerp(myTransform.position, (glitching) ? currentNonGlitchPosition + glitchOffset : currentNonGlitchPosition, glitchLerpSpeed);
+        currentNonGlitchPosition = Vector3.Lerp(myTransform.position, target, lerpSpeed*Time.deltaTime);
+        currentNonGlitchPosition.x = pl.MyTransform.position.x;
+        Debug.DrawRay(currentNonGlitchPosition, Vector3.up, Color.red, Time.deltaTime);
+        myTransform.position = Vector3.Lerp(myTransform.position, (glitching) ? (currentNonGlitchPosition + glitchOffset) : currentNonGlitchPosition, (glitching) ? (glitchLerpSpeed * Time.deltaTime) : (resetLerpSpeed * Time.deltaTime));
 	}
 
     IEnumerator CameraShake()
     {
         glitching = true;
+        glitchStart = DateTime.Now;
         glitchOffset = (UnityEngine.Random.insideUnitCircle * glitchDistance);
         while (glitching)
         {

@@ -44,10 +44,12 @@ public class Platform : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         myMover.SetVelocity(Vector3.left, 1.0f);
+        if (myTransform.position.x < -100)
+            myPT.ReportOffScreen(this);
 	}
-
-    void OnBecameInvisible()
+    
+    /*void OnBecameInvisible()
     {
         myPT.ReportOffScreen(this);
-    }
+    }*/
 }
