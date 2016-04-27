@@ -15,7 +15,7 @@ GameObject:
   - 114: {fileID: 11424186}
   - 65: {fileID: 6562766}
   - 54: {fileID: 5423442}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,6 +131,7 @@ MonoBehaviour:
   maxMoveSpeed: 6
   jumpHeight: 0
   jumpChargeSpeed: 24
+  jumpChargeScalar: 0.001
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
