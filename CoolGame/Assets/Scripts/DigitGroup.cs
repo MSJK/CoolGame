@@ -20,6 +20,7 @@ public class DigitGroup : MonoBehaviour {
     void Start () {
 
         //set static prefab spawn vars to editor vars
+        PrefabSpawn.H_Speed = digitSpeed;
         PrefabSpawn.Spawn_Interval = spawnInterval;
 
         PrefabSpawn.Bound_Left = boundLeft;

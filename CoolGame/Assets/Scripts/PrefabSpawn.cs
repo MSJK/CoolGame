@@ -3,9 +3,10 @@ using System.Collections;
 
 public class PrefabSpawn : MonoBehaviour {
 
-    //bgAssets Object
+    //bgAsset Vars
     private Transform bgGroup;
     public static float Spawn_Interval;
+    public static float H_Speed;
 
     //Prefab Slot
     public GameObject prefabObj;
@@ -48,6 +49,9 @@ public class PrefabSpawn : MonoBehaviour {
 
             //set spawned object's bound for self-culling based on left of screen
             instance.GetComponent<ScreenCull>().cullBound = Bound_Left;
+
+            //set spawned object's speed
+            instance.GetComponent<ConstantTransform>().TranX = H_Speed;
 
             //do nothing until next interval
             yield return new WaitForSeconds(Spawn_Interval);
