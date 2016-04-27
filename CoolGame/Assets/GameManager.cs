@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
         // Initial Items
         network.AddStoreItem("screen-shake", "Screen Shake", 300);
         network.AddStoreItem("flicker", "Flicker", 500);
+        network.AddStoreItem("noise", "Noise", 500);
 
         network.ItemBought += OnItemBought;
 

@@ -20,17 +20,31 @@ public class CameraScript : MonoBehaviour {
     float glitchDistance = 1;
     [SerializeField]
     float resetLerpSpeed = 1;
+
+    // Camera Shaders
+    [SerializeField]
+    Material noiseMaterial;
+
+    private CameraGlitchEffect cameraEffects;
+
 	// Use this for initialization
 	void Start () {
         pl = (Player)(GameObject.Find("Player").GetComponent(typeof(Player)));
         myTransform = transform;
         currentNonGlitchPosition = transform.position;
         glitchOffset = Vector3.zero;
+	    cameraEffects = GetComponent<CameraGlitchEffect>();
         ((GameManager)(GameObject.Find("GameManager").GetComponent(typeof(GameManager)))).ItemBought += (id) =>
         {
-            if (id == "screen-shake")
+            switch (id)
             {
-                StartCoroutine(CameraShake());
+                case "screen-shake":
+                    StartCoroutine(CameraShake());
+                    break;
+
+                case "noise":
+                    CameraNoise();
+                    break;
             }
         };
     }
@@ -58,5 +72,10 @@ public class CameraScript : MonoBehaviour {
             if (myTransform.position == currentNonGlitchPosition + glitchOffset)
                 glitchOffset = (UnityEngine.Random.insideUnitCircle * glitchDistance);
         }
+    }
+
+    void CameraNoise()
+    {
+        cameraEffects.StartEffect(3, noiseMaterial);
     }
 }
