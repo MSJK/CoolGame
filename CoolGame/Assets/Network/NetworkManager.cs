@@ -3,7 +3,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using SocketIO;
-using UnityEngine.SceneManagement;
 
 public struct StoreItem
 {
@@ -58,8 +57,12 @@ public class NetworkManager : MonoBehaviour
         });
         socket.On("item bought", OnItemBought);
 
-	    SceneManager.LoadScene("MainMenu");
-	}
+#if UNITY_5_3_OR_NEWER
+        SceneManagement.SceneManager.LoadScene("MainMenu");
+#else
+        Application.LoadLevel("MainMenu");
+#endif
+    }
 
     public void Connect()
     {

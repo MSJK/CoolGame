@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
@@ -27,7 +26,12 @@ public class MainMenu : MonoBehaviour {
     public void CreateGame()
     {
         network.Connect();
-        SceneManager.LoadScene("GameLobby");
+
+#if UNITY_5_3_OR_NEWER
+        SceneManagement.SceneManager.LoadScene("GameLobby");
+#else
+        Application.LoadLevel("GameLobby");
+#endif
     }
 
     public void Quit()

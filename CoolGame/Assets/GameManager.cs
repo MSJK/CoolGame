@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour {
         if (network.ItemBought != null) network.ItemBought -= OnItemBought;
     }
 
+    
+
     // EVENT HANDLING
 
     public void OnItemBought(string itemId)
