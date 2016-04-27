@@ -37,10 +37,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 106656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 251dc7db9857fae4e8c9293b45173db2, type: 3}
+  m_Script: {fileID: 11500000, guid: c9816aa842faf6f478b08d283e9fe94c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: ws://hello.xbloom.io:3000/socket.io/?EIO=4&transport=websocket
+  url: ws://coolgame.xbloom.io:3000/socket.io/?EIO=3&transport=websocket
   autoConnect: 0
   reconnectDelay: 5
   ackExpirationTime: 30
@@ -63,7 +63,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: url
+      value: ws://coolgame.xbloom.io:3000/socket.io/?EIO=3&transport=websocket
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 106656}
