@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameLobby : MonoBehaviour {
     private NetworkManager network;
-
+    
     public Text RoomCodeText;
     public Text PlayerCountText;
 
@@ -32,14 +31,22 @@ public class GameLobby : MonoBehaviour {
     public void Quit()
     {
         network.Disconnect();
-        SceneManager.LoadScene("MainMenu");
+#if UNITY_5_3_OR_NEWER
+        SceneManagement.SceneManager.LoadScene("MainMenu");
+#else
+        Application.LoadLevel("MainMenu");
+#endif
     }
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Game");
+#if UNITY_5_3_OR_NEWER
+        SceneManagement.SceneManager.LoadScene("Game");
+#else
+        Application.LoadLevel("Game");
+#endif
     }
-    
+
     void Update ()
     {
         if (network == null)
