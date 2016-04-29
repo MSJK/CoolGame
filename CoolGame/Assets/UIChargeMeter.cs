@@ -20,5 +20,7 @@ public class UIChargeMeter : MonoBehaviour {
     void Update()
     {
         chargeBar.rectTransform.sizeDelta = new Vector2(meterWidth,Mathf.Clamp(playerMover.JumpCharge, 0, 1) * meterMaxHeight);
+        Vector3 current = chargeBar.rectTransform.position;
+        chargeBar.rectTransform.position = Camera.main.WorldToScreenPoint(playerMover.transform.position) - new Vector3(10, 2, 0);
     }
 }
