@@ -7,7 +7,7 @@ public class DigitGroup : MonoBehaviour {
     public float digitSpeed = -0.05f;
 
     //GlitchVar
-    public bool isGlitching = false;
+    public static bool isGlitching = false;
 
     //SpawnVars
     public float spawnInterval = 0.25f;

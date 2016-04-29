@@ -24,7 +24,7 @@ public class CameraScript : MonoBehaviour {
     [SerializeField]
     float flickerDuration;
     [SerializeField]
-    float shakeRampPercentage;
+    float flickerStrength;
     DateTime flickerStart;
 
     // Camera Shaders
@@ -63,10 +63,14 @@ public class CameraScript : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.C))
             StartCoroutine(Flicker());
-        if (shaking && (DateTime.Now - shakeStart).Milliseconds > shakeDuration)
+        if (shaking && (DateTime.Now - shakeStart).TotalMilliseconds > shakeDuration)
             shaking = false;
-        if (flickering && (DateTime.Now - flickerStart).Milliseconds > flickerDuration)
+        if (flickering && (DateTime.Now - flickerStart).TotalMilliseconds > flickerDuration)
             flickering = false;
+        if (shaking || flickering)
+            DigitGroup.isGlitching = true;
+        else
+            DigitGroup.isGlitching = false;
         currentNonGlitchPosition = Vector3.Lerp(myTransform.position, target, lerpSpeed*Time.deltaTime);
         currentNonGlitchPosition.x = pl.MyTransform.position.x;
         Debug.DrawRay(currentNonGlitchPosition, Vector3.up, Color.red, Time.deltaTime);
@@ -76,12 +80,27 @@ public class CameraScript : MonoBehaviour {
     IEnumerator Flicker()
     {
         flickering = true;
+        flickerStart = DateTime.Now;
+        bool on = false;
         Camera.main.cullingMask &= ~(1 << LayerMask.NameToLayer("Gameplay objects"));
         while (flickering)
         {
-            //if()
+            if(UnityEngine.Random.value>1-Time.deltaTime*flickerStrength)
+            {
+                if (on)
+                {
+                    Camera.main.cullingMask &= ~(1 << LayerMask.NameToLayer("Gameplay objects"));
+                    on = false;
+                }
+                else
+                {
+                    Camera.main.cullingMask |= (1 << LayerMask.NameToLayer("Gameplay objects"));
+                    on = true;
+                }
+            }
             yield return null;
         }
+        Camera.main.cullingMask |= (1 << LayerMask.NameToLayer("Gameplay objects"));
     }
 
     IEnumerator CameraShake()
