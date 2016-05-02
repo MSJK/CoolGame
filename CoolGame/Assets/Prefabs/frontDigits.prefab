@@ -96,15 +96,13 @@ SpriteRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ff7856b8e86b4b64bbf56a18e08c2673, type: 3}
-  m_Color: {r: 0.0302907, g: 0.8784314, b: 0, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
+  m_Color: {r: .546930313, g: 1, b: .371999979, a: 1}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -122,11 +120,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Color.r
-      value: 0.0302907
+      value: .546930313
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Color.g
-      value: 0.8784314
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Sprite
@@ -157,6 +155,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300002, guid: ff7856b8e86b4b64bbf56a18e08c2673,
         type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Color.b
+      value: .371999979
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 114820}

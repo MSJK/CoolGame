@@ -182,7 +182,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9b103470fa2f7784c97074a7e08a5cc3, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: .426470578, g: .833874345, b: 1, a: 1}
 --- !u!95 &635283848
 Animator:
   serializedVersion: 3
@@ -469,7 +469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .0156862754, g: .87843138, b: 0, a: .392156869}
+  m_Color: {r: .223607883, g: .87843138, b: .211701959, a: .541000009}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -563,7 +563,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: .760784388, g: .760784388, b: .760784388, a: .178000003}
+  m_Color: {r: .760784388, g: .760784388, b: .760784388, a: 0}
 --- !u!4 &1278921347
 Transform:
   m_ObjectHideFlags: 0
