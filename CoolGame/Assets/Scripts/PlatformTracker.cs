@@ -50,11 +50,10 @@ public class PlatformTracker : MonoBehaviour {
             else
             {
                 pf.IsActive = false;
-            }
-
-            if(!haveActivePf)
-                StartCoroutine(((Mover)pl.gameObject.GetComponent(typeof(Mover))).Unground());
+            }           
         }
+        if (!haveActivePf)
+            StartCoroutine(((Mover)pl.gameObject.GetComponent(typeof(Mover))).Unground());
     }
 
     public void ReportOffScreen(Platform pf)

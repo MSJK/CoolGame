@@ -14,6 +14,10 @@ public class Mover : MonoBehaviour {
     float jumpVelocityLimit = 10;
     bool jumping = false;
     bool grounded = true;
+    public bool Grounded
+    {
+        get { return grounded; }
+    }
 	// Use this for initialization
 	void Start () {
         myTransform = transform;
@@ -31,7 +35,7 @@ public class Mover : MonoBehaviour {
         }
 
         myTransform.position += velocity * Time.deltaTime;
-        velocity += activeAccel * Time.deltaTime;        
+        velocity += activeAccel * Time.deltaTime;
 	}
 
     public IEnumerator Unground()
