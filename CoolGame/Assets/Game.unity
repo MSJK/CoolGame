@@ -533,9 +533,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxMoveSpeed: 5
-  jumpHeight: 10
-  jumpChargeSpeed: 10000
-  jumpChargeScalar: .800000012
+  jumpAcceleration: 75
+  jumpVelocityLimit: 8
 --- !u!212 &1278921346
 SpriteRenderer:
   m_ObjectHideFlags: 0
