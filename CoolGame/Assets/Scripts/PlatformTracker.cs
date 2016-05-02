@@ -36,15 +36,24 @@ public class PlatformTracker : MonoBehaviour {
     public void Report(Player pl)
     {
         Vector2 playerPosition = pl.MyTransform.position;
+        bool haveActivePf = false;
         foreach(Platform pf in pfSet)
         {
             float start = pf.PlatformStart;
             float end = pf.PlatformEnd;
             float height = pf.PlatformHeight;
-            if (playerPosition.x >= start && playerPosition.x <= end && playerPosition.y >= height)
+            if (playerPosition.x > start && playerPosition.x < end && playerPosition.y > height)
+            {
                 pf.IsActive = true;
+                haveActivePf = true;
+            }
             else
+            {
                 pf.IsActive = false;
+            }
+
+            if(!haveActivePf)
+                StartCoroutine(((Mover)pl.gameObject.GetComponent(typeof(Mover))).Unground());
         }
     }
 

@@ -14,6 +14,5 @@ public class UI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        chargeText.text = Math.Truncate(Mathf.Clamp(playerMover.JumpCharge, 0, 1) * 100) + "%";
 	}
 }
