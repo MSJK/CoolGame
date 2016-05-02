@@ -5,24 +5,19 @@ public class Mover : MonoBehaviour {
     Vector3 acceleration;
     Vector3 velocity;
     Transform myTransform;
-    float jumpCharge = 0;
-    public float JumpCharge
-    {
-        get
-        {
-            return jumpCharge;
-        }
-    }
     [SerializeField]
     float maxMoveSpeed;
-    [SerializeField]
-    float jumpHeight;
     BoxCollider myCollider;
     [SerializeField]
-    float jumpChargeSpeed = 24f;
+    float jumpAcceleration = 15;
     [SerializeField]
-    float jumpChargeScalar = .001f;
+    float jumpVelocityLimit = 10;
+    bool jumping = false;
     bool grounded = true;
+    public bool Grounded
+    {
+        get { return grounded; }
+    }
 	// Use this for initialization
 	void Start () {
         myTransform = transform;
@@ -31,27 +26,39 @@ public class Mover : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        Vector3 activeAccel = acceleration;
+        if (jumping && velocity.sqrMagnitude < jumpVelocityLimit * jumpVelocityLimit)
+            activeAccel = new Vector3(0, jumpAcceleration, 0);
+        else
+        {
+            jumping = false;
+        }
+
         myTransform.position += velocity * Time.deltaTime;
-        velocity += acceleration * Time.deltaTime;        
+        velocity += activeAccel * Time.deltaTime;
 	}
 
-    IEnumerator Unground()
+    public IEnumerator Unground()
     {
+        grounded = false;
         yield return null;
         grounded = false;
     }
 
     public void Jump()
     {
-        jumpCharge = Mathf.Clamp(jumpCharge, 0, 1);
-        velocity.y += jumpHeight*jumpCharge;
+        if (!grounded)
+            return;
+        //jumpCharge = Mathf.Clamp(jumpCharge, 0, 1);
+        //velocity.y += jumpHeight*jumpCharge;
+        jumping = true;
         StartCoroutine(Unground());
-        jumpCharge = 0;
+        //jumpCharge = 0;
     }
-    public void ChargeJump()
+
+    public void StopJump()
     {
-        jumpCharge += (Time.deltaTime * jumpChargeScalar);
-        jumpCharge *= 1+(Time.deltaTime * jumpChargeSpeed);
+        jumping = false;
     }
 
     public void SetVelocity(Vector3 direction, float percent)
