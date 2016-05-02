@@ -31,6 +31,9 @@ public class CameraScript : MonoBehaviour {
     [SerializeField]
     Material noiseMaterial;
 
+    [SerializeField]
+    Material crtMaterial;
+
     private CameraGlitchEffect cameraEffects;
     
 	// Use this for initialization
@@ -54,6 +57,10 @@ public class CameraScript : MonoBehaviour {
 
                 case "flicker":
                     StartCoroutine(Flicker());
+                    break;
+
+                case "crt":
+                    CameraCRT();
                     break;
             }
         };
@@ -119,5 +126,10 @@ public class CameraScript : MonoBehaviour {
     void CameraNoise()
     {
         cameraEffects.StartEffect(3, noiseMaterial);
+    }
+
+    void CameraCRT()
+    {
+        cameraEffects.StartEffect(3, crtMaterial);
     }
 }

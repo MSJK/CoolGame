@@ -815,6 +815,7 @@ MonoBehaviour:
   flickerDuration: 999
   flickerStrength: 5
   noiseMaterial: {fileID: 2100000, guid: c2f8d45a7d1f0ea4a9c306f28384c24d, type: 2}
+  crtMaterial: {fileID: 2100000, guid: 8b80576bd8384e546aa86e4c9c90d999, type: 2}
 --- !u!114 &1738127794
 MonoBehaviour:
   m_ObjectHideFlags: 0
