@@ -274,7 +274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98fdd74b2cc01084bafcb8bde7f229c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InstructionsText: {fileID: 1207045387}
   RoomCodeText: {fileID: 767989510}
   PlayerCountText: {fileID: 924051088}
 --- !u!4 &920628733
@@ -500,7 +499,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Go to http://coolgame.xbloom.io:3000 to join the game!
+  m_Text: Go to http://glitch.xbloom.io:3000 to join the game!
 --- !u!222 &1207045388
 CanvasRenderer:
   m_ObjectHideFlags: 0
