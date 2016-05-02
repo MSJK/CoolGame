@@ -26,7 +26,18 @@ public class Player : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Space))
             myMover.Jump();
         //Camera.main.transform.position = new Vector3(myTransform.position.x, 0, myTransform.position.z - 5);
-	}
+
+        var camY = Camera.main.transform.position.y;
+        if (transform.position.y < camY - 10)
+        {
+            // Game Over
+#if UNITY_5_3_OR_NEWER
+            SceneManagement.SceneManager.LoadScene("GameOver");
+#else
+            Application.LoadLevel("GameOver");
+#endif
+        }
+    }
 
     void OnTriggerEnter(Collider col)
     {
