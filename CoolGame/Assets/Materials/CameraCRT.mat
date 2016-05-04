@@ -93,14 +93,6 @@ Material:
         second: .5
       data:
         first:
-          name: _EffectTime
-        second: 0
-      data:
-        first:
-          name: _MaxTime
-        second: 0
-      data:
-        first:
           name: _Parallax
         second: .0199999996
       data:
@@ -135,6 +127,14 @@ Material:
         first:
           name: _Metallic
         second: 0
+      data:
+        first:
+          name: _EffectTime
+        second: 2.99856687
+      data:
+        first:
+          name: _MaxTime
+        second: 3
     m_Colors:
       data:
         first:

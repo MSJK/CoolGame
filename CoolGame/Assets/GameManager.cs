@@ -28,7 +28,8 @@ public class GameManager : MonoBehaviour {
         network.AddStoreItem("screen-shake", "Screen Shake", 300);
         network.AddStoreItem("flicker", "Flicker", 500);
         network.AddStoreItem("noise", "Noise", 500);
-        network.AddStoreItem("crt", "CRT", 150);
+        network.AddStoreItem("vertical-flip", "Vertical Flip", 600);
+        network.AddStoreItem("horizontal-flip", "Horizontal Flip", 600);
 
         network.ItemBought += OnItemBought;
 

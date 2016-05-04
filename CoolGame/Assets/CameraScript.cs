@@ -34,6 +34,12 @@ public class CameraScript : MonoBehaviour {
     [SerializeField]
     Material crtMaterial;
 
+    [SerializeField]
+    Material verticalFlipMaterial;
+
+    [SerializeField]
+    Material horizontalFlipMaterial;
+
     private CameraGlitchEffect cameraEffects;
     
 	// Use this for initialization
@@ -59,8 +65,12 @@ public class CameraScript : MonoBehaviour {
                     StartCoroutine(Flicker());
                     break;
 
-                case "crt":
-                    CameraCRT();
+                case "vertical-flip":
+                    CameraVerticalFlip();
+                    break;
+
+                case "horizontal-flip":
+                    CameraHorizontalFlip();
                     break;
             }
         };
@@ -128,8 +138,13 @@ public class CameraScript : MonoBehaviour {
         cameraEffects.StartEffect(3, noiseMaterial);
     }
 
-    void CameraCRT()
+    void CameraVerticalFlip()
     {
-        cameraEffects.StartEffect(3, crtMaterial);
+        cameraEffects.StartEffect(3, verticalFlipMaterial);
+    }
+
+    void CameraHorizontalFlip()
+    {
+        cameraEffects.StartEffect(3, horizontalFlipMaterial);
     }
 }
