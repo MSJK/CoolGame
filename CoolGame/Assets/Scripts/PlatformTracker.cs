@@ -24,6 +24,8 @@ public class PlatformTracker : MonoBehaviour {
             float newXDiff = UnityEngine.Random.value * 3.75f + 1.5f;
             var newPlatform = (GameObject)Instantiate(Resources.Load("Platform"), new Vector3(currentPf.PlatformEnd + newXDiff, currentPf.transform.position.y + newYDiff, 0), Quaternion.identity);
             currentPf = (Platform)newPlatform.GetComponent(typeof(Platform));
+            Currency newCurrency = (Currency)((GameObject)Instantiate(Resources.Load("Collectible"), currentPf.transform.position, Quaternion.identity)).GetComponent(typeof(Currency));
+            newCurrency.AssignPlatform(currentPf);
         }
         //Camera.main.transform.position += new Vector3(0, (currentPf.transform.position.y+2f - Camera.main.transform.position.y)*.2f*Time.deltaTime, 0);
         cs.target = new Vector3(Camera.main.transform.position.x, currentPf.transform.position.y + 2f, Camera.main.transform.position.z);

@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
             network.GameOver();
     }
 
-    void GivePoints(int amount)
+    public void GivePoints(int amount)
     {
         if (network != null)
             network.GivePoints(amount);
