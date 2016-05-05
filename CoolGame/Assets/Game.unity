@@ -137,7 +137,7 @@ GameObject:
   - 212: {fileID: 635283847}
   - 95: {fileID: 635283848}
   m_Layer: 0
-  m_Name: character_spriteSheet_run_0
+  m_Name: character_sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
