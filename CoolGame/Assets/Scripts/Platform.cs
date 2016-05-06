@@ -15,6 +15,8 @@ public class Platform : MonoBehaviour {
     {
         get
         {
+            if (myTransform == null)
+                myTransform = transform;
             return myTransform.position.x-myTransform.localScale.x/2;
         }
     }
@@ -22,7 +24,18 @@ public class Platform : MonoBehaviour {
     {
         get
         {
+            if (myTransform == null)
+                myTransform = transform;
             return myTransform.position.x + myTransform.localScale.x/2;
+        }
+    }
+    public float PlatformLength
+    {
+        get
+        {
+            if (myTransform == null)
+                myTransform = transform;
+            return myTransform.localScale.x;
         }
     }
     public float PlatformHeight

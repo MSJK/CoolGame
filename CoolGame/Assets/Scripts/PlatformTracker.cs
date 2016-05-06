@@ -6,6 +6,18 @@ public class PlatformTracker : MonoBehaviour {
     CameraScript cs;
     HashSet<Platform> pfSet = new HashSet<Platform>();
     Platform currentPf;
+    [SerializeField]
+    float platformSeparationXMin;
+    [SerializeField]
+    float platformSeparationXMax;
+    [SerializeField]
+    float platformSeparationYMin;
+    [SerializeField]
+    float platformSeparationYMax;
+    [SerializeField]
+    float platformSizeMin;
+    [SerializeField]
+    float platformSizeMax;
     Vector2 bounds = new Vector2(20, 20);
 	// Use this for initialization
 	void Start () {
@@ -20,10 +32,14 @@ public class PlatformTracker : MonoBehaviour {
 	void Update () {
 	    if(currentPf.PlatformEnd<bounds.x)
         {
-            float newYDiff = UnityEngine.Random.value * 1.5f -.75f;
-            float newXDiff = UnityEngine.Random.value * 3.75f + 1.5f;
+            float newYDiff = UnityEngine.Random.value * (platformSeparationYMax - platformSeparationYMin) + platformSeparationYMin;
+            float newXDiff = UnityEngine.Random.value * (platformSeparationXMax - platformSeparationXMin) + platformSeparationXMin;
+            float newLength = UnityEngine.Random.value * (platformSizeMax - platformSizeMin) + platformSizeMin;
             var newPlatform = (GameObject)Instantiate(Resources.Load("Platform"), new Vector3(currentPf.PlatformEnd + newXDiff, currentPf.transform.position.y + newYDiff, 0), Quaternion.identity);
             currentPf = (Platform)newPlatform.GetComponent(typeof(Platform));
+            var baseScale = currentPf.transform.localScale;
+            currentPf.transform.localScale = new Vector3(newLength, baseScale.y, baseScale.z);
+            currentPf.transform.position += new Vector3(currentPf.PlatformLength / 2, 0, 0);
             Currency newCurrency = (Currency)((GameObject)Instantiate(Resources.Load("Collectible"), currentPf.transform.position, Quaternion.identity)).GetComponent(typeof(Currency));
             newCurrency.AssignPlatform(currentPf);
         }
