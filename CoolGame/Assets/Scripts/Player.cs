@@ -37,7 +37,6 @@ public class Player : MonoBehaviour {
             Application.LoadLevel("GameOver");
 #endif
         }
-        Debug.Log(myMover.Grounded);
     }
 
     void OnTriggerEnter(Collider col)
