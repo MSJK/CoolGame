@@ -22,9 +22,15 @@ public class Player : MonoBehaviour {
         myPT.Report(this);
         myMover.SetAcceleration(Vector3.down*20);
         if (Input.GetKeyDown(KeyCode.Space))
-            myMover.Jump();
+        {
+            this.GetComponentsInChildren<Animator>()[0].SetTrigger("JumpStart");
+            myMover.Jump();            
+        }
         else if (Input.GetKeyUp(KeyCode.Space))
-            myMover.StopJump();
+        {
+            this.GetComponentsInChildren<Animator>()[0].SetTrigger("FallStart");
+            myMover.StopJump();            
+        }
         //Camera.main.transform.position = new Vector3(myTransform.position.x, 0, myTransform.position.z - 5);
 
         var camY = Camera.main.transform.position.y;
