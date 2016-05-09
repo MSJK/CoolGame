@@ -18,6 +18,8 @@ public class PlatformTracker : MonoBehaviour {
     float platformSizeMin;
     [SerializeField]
     float platformSizeMax;
+    [SerializeField]
+    float currencyChance;
     Vector2 bounds = new Vector2(20, 20);
 	// Use this for initialization
 	void Start () {
@@ -40,8 +42,11 @@ public class PlatformTracker : MonoBehaviour {
             var baseScale = currentPf.transform.localScale;
             currentPf.transform.localScale = new Vector3(newLength, baseScale.y, baseScale.z);
             currentPf.transform.position += new Vector3(currentPf.PlatformLength / 2, 0, 0);
-            Currency newCurrency = (Currency)((GameObject)Instantiate(Resources.Load("Collectible"), currentPf.transform.position, Quaternion.identity)).GetComponent(typeof(Currency));
-            newCurrency.AssignPlatform(currentPf);
+            if (UnityEngine.Random.value < currencyChance)
+            {
+                Currency newCurrency = (Currency)((GameObject)Instantiate(Resources.Load("Collectible"), currentPf.transform.position, Quaternion.identity)).GetComponent(typeof(Currency));
+                newCurrency.AssignPlatform(currentPf);
+            }
         }
         //Camera.main.transform.position += new Vector3(0, (currentPf.transform.position.y+2f - Camera.main.transform.position.y)*.2f*Time.deltaTime, 0);
         cs.target = new Vector3(Camera.main.transform.position.x, currentPf.transform.position.y + 2f, Camera.main.transform.position.z);

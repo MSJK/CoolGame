@@ -41,8 +41,11 @@ public class PrefabSpawn : MonoBehaviour {
             //the object to be instanced
             GameObject instance = Instantiate(prefabObj);
 
+            //no comment
+            Vector3 camPos = Camera.main.transform.position;
+
             //set object's starting position to be right of screen at random height
-            instance.transform.position = new Vector3 (Bound_Right, Random.Range(Bound_Top, Bound_Bottom), depthLevel);
+            instance.transform.position = new Vector3(Bound_Right, Random.Range(Bound_Top, Bound_Bottom), depthLevel) + new Vector3(0, camPos.y,0);
 
             //make spawned object child of the game object this script is attached to
             instance.transform.parent = this.transform;
