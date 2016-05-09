@@ -58,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 177082}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: .400000006, y: .400000006, z: .400000006}
   m_Children: []
   m_Father: {fileID: 424548}
   m_RootOrder: 0
@@ -114,8 +114,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 2
-  m_Color: {r: 0, g: 1, b: 0.13103461, a: 1}
-  m_Intensity: 4.05
+  m_Color: {r: 0, g: 1, b: .131034613, a: 1}
+  m_Intensity: 4.05000019
   m_Range: 1
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -123,9 +123,8 @@ Light:
     m_Type: 0
     m_Resolution: -1
     m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_Bias: .0500000007
+    m_NormalBias: .400000006
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
@@ -149,8 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310d9cd263946474890efc534afbd426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionRadius: 0.5
-  points: 50
+  collisionRadius: .5
+  points: 100
 --- !u!135 &13543778
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -161,7 +160,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: .5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &21276098
 SpriteRenderer:
@@ -184,15 +183,13 @@ SpriteRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: dd55fde9c8ad1504a8929830cf351e0e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -210,7 +207,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: points
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Color.r
